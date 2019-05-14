@@ -135,8 +135,8 @@ import java.util.function.Consumer;
  * as the coordinator has members which are used without synchronization.
  */
 public class DataConnection extends StateMachine {
-    private static final boolean DBG = true;
-    private static final boolean VDBG = true;
+    protected static final boolean DBG = true;
+    protected static final boolean VDBG = true;
 
     private static final String NETWORK_TYPE = "MOBILE";
 
@@ -202,7 +202,7 @@ public class DataConnection extends StateMachine {
     // Whether or not the data connection should allocate its own pdu session id
     private final boolean mDoAllocatePduSessionId;
 
-    private static AtomicInteger mInstanceNumber = new AtomicInteger(0);
+    protected static AtomicInteger mInstanceNumber = new AtomicInteger(0);
     private AsyncChannel mAc;
 
     // The DCT that's talking to us, we only support one!
@@ -337,7 +337,7 @@ public class DataConnection extends StateMachine {
 
     private int mDisabledApnTypeBitMask = 0;
 
-    int mTag;
+    protected int mTag;
 
     /** Data connection id assigned by the modem. This is unique across transports */
     public int mCid;
@@ -480,7 +480,7 @@ public class DataConnection extends StateMachine {
         return dc;
     }
 
-    void dispose() {
+    protected void dispose() {
         log("dispose: call quiteNow()");
         quitNow();
     }
@@ -757,7 +757,7 @@ public class DataConnection extends StateMachine {
     }
 
     //***** Constructor (NOTE: uses dcc.getHandler() as its Handler)
-    private DataConnection(Phone phone, String tagSuffix, int id,
+    protected DataConnection(Phone phone, String tagSuffix, int id,
                            DcTracker dct, DataServiceManager dataServiceManager,
                            DcTesterFailBringUpAll failBringUpAll, DcController dcc,
                            boolean doAllocatePduSessionId) {
