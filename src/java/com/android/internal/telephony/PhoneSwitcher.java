@@ -97,7 +97,7 @@ import java.util.concurrent.CompletableFuture;
  * the active phones.  Note we don't wait for data attach (which may not happen anyway).
  */
 public class PhoneSwitcher extends Handler {
-    private static final String LOG_TAG = "PhoneSwitcher";
+    protected static final String LOG_TAG = "PhoneSwitcher";
     protected static final boolean VDBG = false;
 
     private static final int DEFAULT_NETWORK_CHANGE_TIMEOUT_MS = 5000;
@@ -245,7 +245,7 @@ public class PhoneSwitcher extends Handler {
 
     private ISetOpportunisticDataCallback mSetOpptSubCallback;
 
-    private static final int EVENT_PRIMARY_DATA_SUB_CHANGED       = 101;
+    protected static final int EVENT_PRIMARY_DATA_SUB_CHANGED       = 101;
     protected static final int EVENT_SUBSCRIPTION_CHANGED           = 102;
     private static final int EVENT_REQUEST_NETWORK                = 103;
     private static final int EVENT_RELEASE_NETWORK                = 104;
@@ -283,6 +283,9 @@ public class PhoneSwitcher extends Handler {
     private static final int EVENT_PROCESS_SIM_STATE_CHANGE       = 119;
     @VisibleForTesting
     public static final int EVENT_IMS_RADIO_TECH_CHANGED          = 120;
+    protected final static int EVENT_VOICE_CALL_ENDED             = 121;
+    protected static final int EVENT_UNSOL_MAX_DATA_ALLOWED_CHANGED = 122;
+    protected static final int EVENT_OEM_HOOK_SERVICE_READY       = 123;
 
     // List of events triggers re-evaluations
     private static final String EVALUATION_REASON_RADIO_ON = "EVENT_RADIO_ON";
@@ -1206,7 +1209,7 @@ public class PhoneSwitcher extends Handler {
         }
     }
 
-    private int phoneIdForRequest(NetworkRequest netRequest) {
+    protected int phoneIdForRequest(NetworkRequest netRequest) {
         int subId = getSubIdFromNetworkSpecifier(netRequest.getNetworkSpecifier());
 
         if (subId == DEFAULT_SUBSCRIPTION_ID) return mPreferredDataPhoneId;
