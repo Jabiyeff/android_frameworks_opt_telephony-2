@@ -420,7 +420,7 @@ public class ServiceStateTracker extends Handler {
             // which seems desirable.
             mPhone.updateVoiceMail();
 
-            if (!SubscriptionManager.isValidSubscriptionId(mSubId)) {
+            if (!mSubscriptionController.isActiveSubId(mSubId)) {
                 if (mSubscriptionController.isActiveSubId(mPrevSubId)) {
                     // just went from valid to invalid subId, so notify phone state listeners
                     // with final broadcast
